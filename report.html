@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Site Report | UrbanPulse Zimbabwe</title>
+
+  <link rel="stylesheet" href="style.css" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" defer></script>
+</head>
+
+<body>
+
+  <header class="navbar">
+    <a href="index.html" class="logo-section">
+      <img src="images/urban pulse logo.png" alt="UrbanPulse Logo" class="logo" />
+
+      <div>
+        <h2>UrbanPulse</h2>
+        <p>ZIMBABWE</p>
+      </div>
+    </a>
+
+    <a href="analyze.html" class="back-link">← Analyze another site</a>
+  </header>
+
+  <main class="report-page" id="reportContent">
+
+    <section class="report-hero">
+      <div>
+        <p class="section-label">SITE INTELLIGENCE REPORT</p>
+        <h1 id="reportLocation">Site Location</h1>
+
+        <div class="report-meta">
+          <span id="reportCity">City</span>
+          <span id="reportArea">Site Area</span>
+          <span id="reportType">Development Type</span>
+        </div>
+      </div>
+
+      <div class="report-actions">
+        <button id="downloadPdf" class="download-btn" type="button">
+          Download PDF Report
+        </button>
+
+        <button onclick="window.print()" class="download-btn secondary" type="button">
+          Print Report
+        </button>
+      </div>
+    </section>
+
+    <section class="recommendation-card verdict-card">
+      <p class="section-label">URBANPULSE VERDICT</p>
+
+      <h2 id="verdictTitle">Analysing site potential...</h2>
+
+      <p id="verdictText">
+        UrbanPulse is reviewing location, accessibility, infrastructure and development indicators.
+      </p>
+    </section>
+
+    <section class="kpi-grid">
+      <div class="kpi-card highlight">
+        <p>Buy Score</p>
+        <h2 id="buyScore">82/100</h2>
+        <span id="buyScoreLabel">Strong Opportunity</span>
+      </div>
+
+      <div class="kpi-card">
+        <p>Highest & Best Use</p>
+        <h2 id="bestUse">Medium Density Residential</h2>
+        <span>Recommended development direction</span>
+      </div>
+
+      <div class="kpi-card">
+        <p>Risk Rating</p>
+        <h2 id="riskRating">Moderate</h2>
+        <span>Preliminary investment risk</span>
+      </div>
+
+      <div class="kpi-card">
+        <p>Development Potential</p>
+        <h2 id="developmentPotential">High</h2>
+        <span>Based on site size and use type</span>
+      </div>
+    </section>
+
+    <section class="report-grid">
+      <div class="report-card-large">
+        <div class="card-heading">
+          <p>KEY INDICATORS</p>
+          <h2>Development Summary</h2>
+        </div>
+
+        <div class="readiness-list">
+          <div>
+            <span>Highest & Best Use</span>
+            <strong id="bestUseSummary">Cluster Homes</strong>
+          </div>
+
+          <div>
+            <span>Projected ROI</span>
+            <strong id="roiValue">21%</strong>
+          </div>
+
+          <div>
+            <span>Risk Rating</span>
+            <strong id="riskSummary">Moderate</strong>
+          </div>
+
+          <div>
+            <span>Buildable Area</span>
+            <strong id="buildableArea">1,560 m²</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="report-card-large">
+        <div class="card-heading">
+          <p>ZONING</p>
+          <h2>Development Controls</h2>
+        </div>
+
+        <div class="readiness-list">
+          <div>
+            <span>Designation</span>
+            <strong id="zoningDesignation">Low Density Residential</strong>
+          </div>
+
+          <div>
+            <span>Maximum Coverage</span>
+            <strong id="maximumCoverage">40%</strong>
+          </div>
+
+          <div>
+            <span>Maximum Height</span>
+            <strong id="maximumHeight">2 Storeys</strong>
+          </div>
+
+          <div>
+            <span>Front Setback</span>
+            <strong id="frontSetback">7.5 m</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="report-grid">
+      <div class="report-card-large">
+        <div class="card-heading">
+          <p>YIELD SCENARIOS</p>
+          <h2>Indicative Residential Yield</h2>
+        </div>
+
+        <div class="yield-grid">
+          <div>
+            <span>Detached Housing</span>
+            <h3 id="lowYield">0</h3>
+            <p>homes</p>
+          </div>
+
+          <div>
+            <span>Townhouses</span>
+            <h3 id="mediumYield">0</h3>
+            <p>homes</p>
+          </div>
+
+          <div>
+            <span>Apartments</span>
+            <h3 id="highYield">0</h3>
+            <p>homes</p>
+          </div>
+        </div>
+
+        <p class="yield-note">
+          Based on buildable area assumptions. Subject to zoning, servicing, parking and detailed design.
+        </p>
+      </div>
+
+      <div class="report-card-large">
+        <div class="card-heading">
+          <p>INVESTMENT OUTLOOK</p>
+          <h2>Estimated Financial Snapshot</h2>
+        </div>
+
+        <div class="progress-item">
+          <p>Estimated Land Value</p>
+          <div class="bar">
+            <div class="fill"></div>
+          </div>
+        </div>
+
+        <div class="progress-item">
+          <p>Development Cost</p>
+          <div class="bar">
+            <div class="fill fill2"></div>
+          </div>
+        </div>
+
+        <div class="progress-item">
+          <p>Gross Development Value</p>
+          <div class="bar">
+            <div class="fill fill3"></div>
+          </div>
+        </div>
+
+        <div class="readiness-list investment-values">
+          <div>
+            <span>Land Value</span>
+            <strong id="landValue">$185,000</strong>
+          </div>
+
+          <div>
+            <span>Development Cost</span>
+            <strong id="developmentCost">$420,000</strong>
+          </div>
+
+          <div>
+            <span>Gross Development Value</span>
+            <strong id="gdv">$780,000</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="report-grid">
+      <div class="report-card-large">
+        <div class="card-heading">
+          <p>INFRASTRUCTURE</p>
+          <h2>Readiness Assessment</h2>
+        </div>
+
+        <div class="readiness-list">
+          <div>
+            <span>Road Access</span>
+            <strong id="roadAccess">Checking...</strong>
+          </div>
+
+          <div>
+            <span>Water Access</span>
+            <strong id="waterAccess">Checking...</strong>
+          </div>
+
+          <div>
+            <span>Power Access</span>
+            <strong id="powerAccess">Checking...</strong>
+          </div>
+
+          <div>
+            <span>Sewer Access</span>
+            <strong id="sewerAccess">Checking...</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="report-card-large">
+        <div class="card-heading">
+          <p>ACCESSIBILITY</p>
+          <h2>Nearby Services</h2>
+        </div>
+
+        <div class="readiness-list" id="accessibilityData">
+          <div>
+            <span>Loading OpenStreetMap data...</span>
+            <strong>Please wait</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="report-grid">
+      <div class="report-card-large">
+        <div class="card-heading">
+          <p>URBAN CONTEXT</p>
+          <h2>Development Intensity</h2>
+        </div>
+
+        <div class="readiness-list">
+          <div>
+            <span>Urban Context</span>
+            <strong id="urbanContext">Checking...</strong>
+          </div>
+
+          <div>
+            <span>Buildings within 1 km</span>
+            <strong id="buildingCount">Checking...</strong>
+          </div>
+
+          <div>
+            <span>Amenities within 2 km</span>
+            <strong id="amenityCount">Checking...</strong>
+          </div>
+
+          <div>
+            <span>Road Exposure</span>
+            <strong id="roadExposure">Checking...</strong>
+          </div>
+
+          <div>
+            <span>Development Intensity</span>
+            <strong id="developmentIntensity">Checking...</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="report-card-large">
+        <div class="card-heading">
+          <p>TOPOGRAPHY</p>
+          <h2>Slope Analysis</h2>
+        </div>
+
+        <div class="readiness-list">
+          <div>
+            <span>Average Slope</span>
+            <strong id="averageSlope">Pending</strong>
+          </div>
+
+          <div>
+            <span>Buildability</span>
+            <strong id="buildabilityRating">Pending</strong>
+          </div>
+
+          <div>
+            <span>Earthworks Risk</span>
+            <strong id="earthworksRisk">Pending</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="report-grid">
+      <div class="report-card-large">
+        <div class="card-heading">
+          <p>ENVIRONMENTAL RISK</p>
+          <h2>Flood Assessment</h2>
+        </div>
+
+        <div class="readiness-list">
+          <div>
+            <span>Flood Risk</span>
+            <strong id="floodRisk">Pending</strong>
+          </div>
+
+          <div>
+            <span>Development Constraint</span>
+            <strong id="floodConstraint">Pending</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="report-card-large">
+        <div class="card-heading">
+          <p>MARKET DEMAND</p>
+          <h2>Population Catchment</h2>
+        </div>
+
+        <div class="readiness-list">
+          <div>
+            <span>1 km Population</span>
+            <strong id="population1km">Pending</strong>
+          </div>
+
+          <div>
+            <span>3 km Population</span>
+            <strong id="population3km">Pending</strong>
+          </div>
+
+          <div>
+            <span>5 km Population</span>
+            <strong id="population5km">Pending</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="report-grid">
+      <div class="report-card-large">
+        <div class="card-heading">
+          <p>SCORE BREAKDOWN</p>
+          <h2>UrbanPulse Evaluation</h2>
+        </div>
+
+        <div class="progress-item">
+          <p>Location Quality</p>
+          <div class="bar">
+            <div class="fill"></div>
+          </div>
+        </div>
+
+        <div class="progress-item">
+          <p>Infrastructure Readiness</p>
+          <div class="bar">
+            <div class="fill fill2"></div>
+          </div>
+        </div>
+
+        <div class="progress-item">
+          <p>Market Potential</p>
+          <div class="bar">
+            <div class="fill fill3"></div>
+          </div>
+        </div>
+
+        <div class="progress-item">
+          <p>Risk Profile</p>
+          <div class="bar">
+            <div class="fill fill2"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="report-card-large">
+        <div class="card-heading">
+          <p>SITE LOCATION</p>
+          <h2>Property Map</h2>
+        </div>
+
+        <div id="reportMap"></div>
+      </div>
+    </section>
+
+    <section class="report-grid">
+      <div class="report-card-large">
+        <div class="card-heading">
+          <p>INVESTMENT ACTIONS</p>
+          <h2>Recommended Next Steps</h2>
+        </div>
+
+        <ul class="report-list">
+          <li>Verify title deed and ownership.</li>
+          <li>Confirm zoning with local authority.</li>
+          <li>Confirm water and sewer availability.</li>
+          <li>Review power capacity requirements.</li>
+          <li>Conduct topographical survey.</li>
+          <li>Assess flood and soil conditions.</li>
+        </ul>
+      </div>
+
+      <div class="report-card-large">
+        <div class="card-heading">
+          <p>OPPORTUNITIES</p>
+          <h2>Positive Development Signals</h2>
+        </div>
+
+        <ul class="report-list">
+          <li>Good potential for residential development.</li>
+          <li>Site size supports multiple density scenarios.</li>
+          <li>Suitable for preliminary investor screening.</li>
+          <li>Potential to support phased development.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="report-grid">
+      <div class="report-card-large">
+        <div class="card-heading">
+          <p>CONSTRAINTS</p>
+          <h2>Items Requiring Further Verification</h2>
+        </div>
+
+        <ul class="report-list warning">
+          <li>Title deed and ownership status must be verified separately.</li>
+          <li>Official zoning must be confirmed with the local authority.</li>
+          <li>Water, sewer and electricity access require ground confirmation.</li>
+          <li>Flood and soil conditions require professional review.</li>
+        </ul>
+      </div>
+
+      <div class="report-card-large">
+        <div class="card-heading">
+          <p>REPORT STATUS</p>
+          <h2>Preliminary Screening Output</h2>
+        </div>
+
+        <div class="readiness-list">
+          <div>
+            <span>Data Level</span>
+            <strong>Preliminary</strong>
+          </div>
+
+          <div>
+            <span>Use Case</span>
+            <strong>Investor Screening</strong>
+          </div>
+
+          <div>
+            <span>Verification Needed</span>
+            <strong>Yes</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="recommendation-card">
+      <p class="section-label">URBANPULSE RECOMMENDATION</p>
+
+      <h2 id="recommendationTitle">Proceed with further due diligence.</h2>
+
+      <p id="recommendationText">
+        This site shows positive development potential based on the information provided.
+        UrbanPulse recommends proceeding to legal, zoning and infrastructure verification
+        before making a purchase or development decision.
+      </p>
+
+      <div class="disclaimer">
+        Beta disclaimer: This report uses preliminary inputs and automated assumptions.
+        It does not replace legal, surveying, engineering, valuation, title-deed,
+        or municipal planning advice.
+      </div>
+    </section>
+
+  </main>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="report.js"></script>
+
+</body>
+</html>
